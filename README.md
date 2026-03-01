@@ -4,6 +4,13 @@ A formal [Fagan Inspection](https://en.wikipedia.org/wiki/Fagan_inspection) skil
 
 Given a change set (staged diff, PR, or working tree), the skill walks the AI through all five Fagan phases -- scoping, planning, domain reviews, synthesis, and rework -- and produces a structured **Fagan Inspection Report** with a prioritized defect log.
 
+## Skills included
+
+| Skill | What it does |
+|---|---|
+| **`fagan-inspection`** | Core inspection. Outputs a Fagan report + defect log. No external dependencies. |
+| **`fagan-inspection-beads`** | Optional add-on. Runs the full inspection, then creates [Beads](https://github.com/steveyegge/beads) issues from the defect log so defects become trackable tasks with priorities and dependencies. |
+
 ## Features
 
 - Automatic scope detection from git context (staged diff, PR range, working tree)
@@ -11,7 +18,8 @@ Given a change set (staged diff, PR, or working tree), the skill walks the AI th
 - Parallel domain reviewers when subagents are available
 - Consolidated defect log with severity, location, fix, and verification steps
 - Entry/exit criteria enforcement
-- Works as an explicit-only skill (no accidental triggers)
+- Works as explicit-only skills (no accidental triggers)
+- **Beads add-on:** defects become trackable issues with parent-child linking, priority mapping (MAJOR->P0, MINOR->P2), and structured acceptance criteria
 
 ## Install
 
@@ -19,7 +27,7 @@ Given a change set (staged diff, PR, or working tree), the skill walks the AI th
 
 ```bash
 # From your project root
-git clone https://github.com/YOUR_USERNAME/fagan-inspection-skill.git /tmp/fagan-skill
+git clone https://github.com/45ck/fagan-inspection-skill.git /tmp/fagan-skill
 cp -r /tmp/fagan-skill/.claude .claude
 cp -r /tmp/fagan-skill/.agents .agents
 ```
@@ -27,7 +35,7 @@ cp -r /tmp/fagan-skill/.agents .agents
 ### Option B: Install globally (user-level)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/fagan-inspection-skill.git
+git clone https://github.com/45ck/fagan-inspection-skill.git
 cd fagan-inspection-skill
 bash install.sh
 ```
@@ -45,18 +53,21 @@ bash uninstall.sh
 ```
 /fagan-inspection
 /fagan-inspection focus on auth module and SQL queries
+
+/fagan-inspection-beads
+/fagan-inspection-beads --include-minor
 ```
 
 ### Codex CLI
 
 ```
 /skills
-# select fagan-inspection from the list
+# select fagan-inspection or fagan-inspection-beads from the list
 ```
 
 ## What you get
 
-The skill outputs a **Fagan Inspection Report** in Markdown:
+### Core skill: Fagan Inspection Report
 
 | Section | Contents |
 |---|---|
@@ -67,15 +78,34 @@ The skill outputs a **Fagan Inspection Report** in Markdown:
 | Rework Summary | What was fixed (if the AI had write permissions) |
 | Verification | Commands and tests that confirm fixes |
 
+### Beads add-on: additional output
+
+| Section | Contents |
+|---|---|
+| Status | Whether Beads was initialized, already present, or skipped |
+| Parent bead | The grouping issue for this inspection run |
+| Created defect beads | Table: Bead ID, Severity, Defect Title, Priority |
+| Skipped defects | MINOR defects omitted unless `--include-minor` was passed |
+| Next actions | Output of `bd ready --json` |
+
+The Beads add-on gracefully degrades: if `bd` is not installed, it outputs the full inspection report and prints install instructions instead of failing.
+
 ## Repo structure
 
 ```
-.claude/skills/fagan-inspection/SKILL.md   # Claude Code entrypoint
-.agents/skills/fagan-inspection/SKILL.md   # Codex CLI entrypoint
-.agents/skills/fagan-inspection/agents/openai.yaml  # Codex metadata
-install.sh          # Global install script
-uninstall.sh        # Global uninstall script
-LICENSE             # MIT
+.claude/skills/
+  fagan-inspection/SKILL.md              # Claude Code: core skill
+  fagan-inspection-beads/SKILL.md        # Claude Code: Beads add-on
+.agents/skills/
+  fagan-inspection/
+    SKILL.md                             # Codex CLI: core skill
+    agents/openai.yaml                   # Codex metadata
+  fagan-inspection-beads/
+    SKILL.md                             # Codex CLI: Beads add-on
+    agents/openai.yaml                   # Codex metadata
+install.sh                               # Global install (both skills)
+uninstall.sh                             # Global uninstall
+LICENSE                                  # MIT
 ```
 
 ## How it works
@@ -89,6 +119,16 @@ The Fagan Inspection is a structured code review process created by Michael Faga
 5. **Rework** -- defects are fixed and verified against exit criteria
 
 This skill encodes that entire process as AI-executable instructions, so the assistant performs a rigorous, multi-perspective review rather than a single-pass skim.
+
+### Beads integration
+
+[Beads](https://github.com/steveyegge/beads) provides persistent, structured memory for coding agents. The add-on skill maps the inspection's defect log to Beads issues:
+
+- One **parent issue** per inspection run (groups all defects)
+- One **child issue** per defect (linked via `bd dep add`)
+- MAJOR defects get P0 priority, MINOR defects get P2 (opt-in with `--include-minor`)
+- Each issue gets structured fields: description (what/why), notes (domain/location/evidence), acceptance criteria (verification steps)
+- Initializes Beads in `--stealth` mode by default so it doesn't commit metadata to your repo
 
 ## License
 

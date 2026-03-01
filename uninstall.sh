@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SKILL="fagan-inspection"
+for skill in fagan-inspection fagan-inspection-beads; do
+  rm -rf "$HOME/.claude/skills/$skill"
+  echo "Removed Claude Code skill: ~/.claude/skills/$skill"
 
-rm -rf "$HOME/.claude/skills/$SKILL"
-echo "Removed Claude Code skill from ~/.claude/skills/$SKILL"
-
-rm -rf "$HOME/.agents/skills/$SKILL"
-echo "Removed Codex CLI skill from ~/.agents/skills/$SKILL"
+  rm -rf "$HOME/.agents/skills/$skill"
+  echo "Removed Codex CLI skill:   ~/.agents/skills/$skill"
+done
 
 echo "Done."
