@@ -1,5 +1,7 @@
 # fagan-inspection-skill
 
+![Banner](banner.png)
+
 A formal [Fagan Inspection](https://en.wikipedia.org/wiki/Fagan_inspection) skill for AI coding assistants. Works with both **Claude Code** and **Codex CLI**.
 
 Given a change set (staged diff, PR, or working tree), the skill walks the AI through all five Fagan phases -- scoping, planning, domain reviews, synthesis, and rework -- and produces a structured **Fagan Inspection Report** with a prioritized defect log.
