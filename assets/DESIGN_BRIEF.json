@@ -1,0 +1,24 @@
+{
+  "repo_name": "fagan-inspection-skill",
+  "tagline": "Formal code inspection, automated by AI",
+  "one_sentence_purpose": "A Claude Code and Codex CLI skill that runs formal Fagan Inspections on code changes, producing structured defect reports with severity ratings and fix recommendations.",
+  "target_users": "Software engineers and teams using AI coding assistants who want rigorous, structured code review beyond basic linting",
+  "keywords": ["fagan-inspection", "code-review", "quality", "defect-detection", "claude-code", "codex-cli"],
+  "visual_metaphors": ["a magnifying glass over structured code blocks revealing hidden defects", "inspection checklist with checkmarks flowing through review phases", "a prism splitting code into domain review channels"],
+  "avoid": ["no mascots", "no photorealism", "no clip art", "no bug illustrations"],
+  "style_adjectives": ["rigorous", "precise", "clinical", "structured", "authoritative"],
+  "palette_hint": {
+    "bg_light": "#ffffff",
+    "bg_dark": "#0d1117",
+    "primary": "#D94F00",
+    "accent": "#2E86AB",
+    "ink": "#c9d1d9"
+  },
+  "assets_needed": [
+    {"path": "assets/banner.light.png", "type": "readme_banner", "desc": "Wide banner on white background with abstract inspection phases flowing left to right (scope, plan, review, synthesize, rework), project name in burnt orange"},
+    {"path": "assets/banner.dark.png", "type": "readme_banner", "desc": "Wide banner on dark background with abstract inspection phases flowing left to right, project name in burnt orange"},
+    {"path": "assets/logo.light.png", "type": "square_logo", "desc": "Square logo on white background with abstract magnifying glass over code lines in orange and blue"},
+    {"path": "assets/logo.dark.png", "type": "square_logo", "desc": "Square logo on dark background with abstract magnifying glass over code lines in orange and blue"},
+    {"path": "assets/social-preview.png", "type": "github_social_preview", "desc": "GitHub social preview card with tagline, abstract inspection pipeline diagram, orange and blue palette"}
+  ]
+}

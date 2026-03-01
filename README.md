@@ -1,7 +1,11 @@
 # fagan-inspection-skill
 
 <p align="center">
-  <img src="banner.svg" alt="Fagan Inspection - Coding Agent Skill" width="800">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner.dark.png" />
+    <source media="(prefers-color-scheme: light)" srcset="assets/banner.light.png" />
+    <img src="assets/banner.light.png" alt="fagan-inspection-skill banner" width="100%" />
+  </picture>
 </p>
 
 A formal [Fagan Inspection](https://en.wikipedia.org/wiki/Fagan_inspection) skill for AI coding assistants. Works with both **Claude Code** and **Codex CLI**.
