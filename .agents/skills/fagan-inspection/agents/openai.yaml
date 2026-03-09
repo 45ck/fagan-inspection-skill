@@ -4,4 +4,4 @@ policy:
 interface:
   display_name: "Fagan Inspection"
   short_description: "Formal multi-domain inspection with a consolidated defect log and verification."
-  default_prompt: "Run a Fagan Inspection on the current change set."
+  default_prompt: "Use $fagan-inspection to review the current change set and produce a formal defect log."

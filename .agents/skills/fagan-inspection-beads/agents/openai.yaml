@@ -4,4 +4,4 @@ policy:
 interface:
   display_name: "Fagan Inspection + Beads"
   short_description: "Run a Fagan Inspection and create Beads issues from the defect log."
-  default_prompt: "Run a Fagan Inspection on the current change set and create Beads issues from the defects."
+  default_prompt: "Use $fagan-inspection-beads to review the current change set and create Beads issues from the defects."

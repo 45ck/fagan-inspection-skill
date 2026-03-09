@@ -31,7 +31,20 @@ Given a change set (staged diff, PR, or working tree), the skill walks the AI th
 
 ## Install
 
-### Option A: Clone into your project
+### Option A: Install for Codex from GitHub
+
+Codex installs skills into `~/.codex/skills`. If you already have the preinstalled `skill-installer` system skill, install both skills directly from GitHub:
+
+```bash
+python ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo 45ck/fagan-inspection-skill \
+  --path .agents/skills/fagan-inspection \
+  --path .agents/skills/fagan-inspection-beads
+```
+
+Restart Codex after installation so the new skills appear in `/skills`.
+
+### Option B: Clone into your project
 
 ```bash
 # From your project root
@@ -40,7 +53,7 @@ cp -r /tmp/fagan-skill/.claude .claude
 cp -r /tmp/fagan-skill/.agents .agents
 ```
 
-### Option B: Install globally (user-level)
+### Option C: Install globally (user-level)
 
 ```bash
 git clone https://github.com/45ck/fagan-inspection-skill.git
@@ -111,7 +124,7 @@ The Beads add-on gracefully degrades: if `bd` is not installed, it outputs the f
   fagan-inspection-beads/
     SKILL.md                             # Codex CLI: Beads add-on
     agents/openai.yaml                   # Codex metadata
-install.sh                               # Global install (both skills)
+install.sh                               # Global install (Claude + Codex ~/.codex/skills)
 uninstall.sh                             # Global uninstall
 LICENSE                                  # MIT
 ```

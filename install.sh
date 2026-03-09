@@ -12,8 +12,8 @@ install_skill() {
   cp "$SCRIPT_DIR/.claude/skills/$skill/SKILL.md" "$claude_dir/SKILL.md"
   echo "  Claude Code -> $claude_dir/SKILL.md"
 
-  # Codex CLI: install to ~/.agents/skills/
-  local codex_dir="$HOME/.agents/skills/$skill"
+  # Codex CLI: install to ~/.codex/skills/
+  local codex_dir="$HOME/.codex/skills/$skill"
   mkdir -p "$codex_dir/agents"
   cp "$SCRIPT_DIR/.agents/skills/$skill/SKILL.md" "$codex_dir/SKILL.md"
   if [ -f "$SCRIPT_DIR/.agents/skills/$skill/agents/openai.yaml" ]; then
