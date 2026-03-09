@@ -82,8 +82,11 @@ bash uninstall.sh
 ### Codex CLI
 
 ```
-/skills
-# select fagan-inspection or fagan-inspection-beads from the list
+$fagan-inspection
+$fagan-inspection review auth and billing changes
+
+$fagan-inspection-beads
+$fagan-inspection-beads --include-minor
 ```
 
 ## What you get

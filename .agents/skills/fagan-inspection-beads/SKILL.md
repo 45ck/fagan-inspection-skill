@@ -1,11 +1,18 @@
 ---
 name: fagan-inspection-beads
-description: Run a Fagan Inspection and create Beads issues from the defect log. Converts defects into trackable Beads tasks with priorities, structured fields, and parent-child dependencies.
+description: Run a Fagan Inspection and create Beads issues from the defect log. Use when the user wants a structured findings-first review plus actionable Beads tracking for the resulting defects. Converts defects into trackable Beads tasks with priorities, structured fields, and parent-child dependencies.
 ---
 
 Run a **Fagan Inspection** on the current change set, then create **Beads issues** from the defect log so defects become trackable tasks.
 
 This is an add-on to `fagan-inspection`. Run the full five-phase inspection first, produce the consolidated defect log, then pipe defects into Beads.
+
+## Operating rules
+
+- Default to review mode, not implementation mode. Do not edit code unless the user explicitly asks for rework after the inspection.
+- Prefer findings about bugs, regressions, missing tests, design risks, and operational hazards over summaries.
+- When subagents are available, use them only for independent domain reviews. Keep scope selection, synthesis, severity decisions, and Beads creation local.
+- Keep commands non-interactive. Use `bd create`, `bd update`, `bd dep add`, and `bd ready --json`; never rely on editor-based flows.
 
 ---
 
@@ -19,7 +26,7 @@ Use existing chat context for intent and acceptance criteria. If missing, derive
 
 **A) Scope** -- Summarize impacted modules/files and externally visible behavior changes.
 
-**B) Plan** -- Define Entry/Exit Criteria. Choose reviewer domains dynamically (correctness, security, performance, reliability, API/design, tests, docs, ops, data/migrations, concurrency, UI). Spawn parallel subagents per domain if supported; otherwise run sequentially.
+**B) Plan** -- Define Entry/Exit Criteria. Choose reviewer domains dynamically (correctness, security, performance, reliability, API/design, tests, docs, ops, data/migrations, concurrency, UI). Spawn parallel subagents per independent domain if supported; otherwise run sequentially.
 
 **C) Preparation** -- Each domain reviewer outputs defects with: Title, Severity (MAJOR|MINOR), Domain, Location (file:line or symbol), What/Why + Evidence, Fix (specific change), Verify (test/command/scenario).
 
@@ -130,6 +137,8 @@ Return a combined report with two sections:
 4. Defect log (table: ID | Sev | Domain | Location | Title | Status | Fix/Next)
 5. Rework summary (if applied)
 6. Verification evidence (commands/tests)
+
+List findings first in the final response. If no defects are found, say that explicitly and skip Beads creation unless the user asked for tracking-only output.
 
 ### Section B: Beads Integration Summary
 
