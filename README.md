@@ -154,6 +154,10 @@ This skill encodes that entire process as AI-executable instructions, so the ass
 - Each issue gets structured fields: description (what/why), notes (domain/location/evidence), acceptance criteria (verification steps)
 - Initializes Beads in `--stealth` mode by default so it doesn't commit metadata to your repo
 
+## Related
+
+- [hci-review-skill](https://github.com/45ck/hci-review-skill) -- Structured HCI and UX prototype review skills: conceptual models, state machines, journey maps, vocabulary audits, heuristic evaluations, cognitive walkthroughs, and more
+
 ## License
 
 [MIT](LICENSE)
