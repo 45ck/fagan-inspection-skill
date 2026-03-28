@@ -1,6 +1,10 @@
 # fagan-inspection-skill
 
 <p align="center">
+  <img src="logo.svg" alt="fagan-inspection-skill logo" width="128" height="128" />
+</p>
+
+<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/banner.dark.png" />
     <source media="(prefers-color-scheme: light)" srcset="assets/banner.light.png" />
