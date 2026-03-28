@@ -83,8 +83,8 @@ LICENSE                              MIT
 
 ## Related workflow agents
 
-- [quality-reviewer](https://github.com/45ck/workflow-agents) - Run structured review and rework prioritization
-- [security-reviewer](https://github.com/45ck/workflow-agents) - Escalate findings with security implications
+- [quality-reviewer](https://github.com/45ck/skill-harness) - Run structured review and rework prioritization
+- [security-reviewer](https://github.com/45ck/skill-harness) - Escalate findings with security implications
 
 ## Related skill packs
 
